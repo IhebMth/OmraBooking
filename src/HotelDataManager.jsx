@@ -163,6 +163,7 @@ const GestionnaireHotels = () => {
   const ajouterChampPersonnalise = () => {
     if (nomNouveauChamp.trim() && !champsPersonnalises.includes(nomNouveauChamp.trim())) {
       const nouveauChamp = nomNouveauChamp.trim();
+      //ok
       setChampsPersonnalises(prev => {
         const miseAJour = [...prev, nouveauChamp];
         sessionStorage.setItem('champsPersonnalises', JSON.stringify(miseAJour));
