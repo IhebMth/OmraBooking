@@ -44,6 +44,7 @@ const GestionnaireHotels = () => {
       icon: <Hotel className="w-5 h-5" />,
       color: "from-blue-500 to-indigo-600",
       fields: [
+        " عدد النجوم",
         "سلسلة الفنادق التابعة لها",
         "البريد الإلكتروني للفندق",
         "رقم الهاتف",
@@ -383,102 +384,178 @@ const GestionnaireHotels = () => {
 
   // Exporter les données d'un seul hôtel
   const exporterVersExcel = () => {
-    if (!hotelSelectionne) {
-      alert("يرجى اختيار فندق أولاً!");
-      return;
+  if (!hotelSelectionne) {
+    alert("يرجى اختيار فندق أولاً!");
+    return;
+  }
+
+  const donneesHotelSelectionne = hotels.find(h => h.id === hotelSelectionne);
+  const wb = XLSX.utils.book_new();
+  
+  // Create worksheet
+  const ws = {};
+  let currentRow = 1;
+
+  // Helper function to set cell value and style
+  const setCellWithStyle = (ref, value, style = {}) => {
+    ws[ref] = { v: value, t: 's', s: style };
+  };
+
+  // Define styles
+  const headerStyle = {
+    fill: { fgColor: { rgb: "FFD700" } }, // Gold background
+    font: { bold: true, sz: 14, color: { rgb: "000000" } },
+    alignment: { horizontal: "center", vertical: "center" },
+    border: {
+      top: { style: "thick", color: { rgb: "000000" } },
+      bottom: { style: "thick", color: { rgb: "000000" } },
+      left: { style: "thick", color: { rgb: "000000" } },
+      right: { style: "thick", color: { rgb: "000000" } }
     }
-
-    const donneesHotelSelectionne = hotels.find(
-      (h) => h.id === hotelSelectionne
-    );
-    const tousLesChamps = [
-      ...Object.values(categoriesChamps).flatMap((cat) => cat.fields),
-      ...Object.values(generateRoomTypeCategories()).flatMap(
-        (cat) => cat.fields
-      ),
-      ...champsPersonnalises,
-    ];
-
-    const donneesExportation = tousLesChamps.map((champ) => ({
-      الحقل: champ,
-      القيمة: donneesActuelles[champ] || "",
-    }));
-
-    donneesExportation.unshift({
-      الحقل: "اسم الفندق",
-      القيمة: donneesHotelSelectionne?.name || "",
-    });
-
-    donneesExportation.unshift({
-      الحقل: "فئة الفندق",
-      القيمة: donneesHotelSelectionne?.category || "",
-    });
-
-    donneesExportation.unshift({
-      الحقل: "منطقة الفندق",
-      القيمة: donneesHotelSelectionne?.district || "",
-    });
-
-    const ws = XLSX.utils.json_to_sheet(donneesExportation);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "بيانات الفندق");
-    XLSX.writeFile(
-      wb,
-      `${donneesHotelSelectionne?.name.replace(
-        /[^a-zA-Z0-9]/g,
-        "_"
-      )}_بيانات.xlsx`
-    );
   };
 
-  // Exporter toutes les données des hôtels
-  const exporterTousLesHotels = () => {
-    const tousLesChamps = [
-      ...Object.values(categoriesChamps).flatMap((cat) => cat.fields),
-      ...champsPersonnalises,
-    ];
+  const categoryHeaderStyle = {
+    fill: { fgColor: { rgb: "4F46E5" } }, // Indigo background
+    font: { bold: true, sz: 12, color: { rgb: "FFFFFF" } },
+    alignment: { horizontal: "center", vertical: "center" },
+    border: {
+      top: { style: "medium", color: { rgb: "000000" } },
+      bottom: { style: "medium", color: { rgb: "000000" } },
+      left: { style: "medium", color: { rgb: "000000" } },
+      right: { style: "medium", color: { rgb: "000000" } }
+    }
+  };
 
-    const donneesExportation = [];
+  const fieldLabelStyle = {
+    fill: { fgColor: { rgb: "F3F4F6" } }, // Light gray background
+    font: { bold: true, sz: 10, color: { rgb: "374151" } },
+    alignment: { horizontal: "right", vertical: "center" },
+    border: {
+      top: { style: "thin", color: { rgb: "D1D5DB" } },
+      bottom: { style: "thin", color: { rgb: "D1D5DB" } },
+      left: { style: "thin", color: { rgb: "D1D5DB" } },
+      right: { style: "thin", color: { rgb: "D1D5DB" } }
+    }
+  };
 
-    hotels.forEach((hotel) => {
-      const donneesHotel = JSON.parse(
-        sessionStorage.getItem(`hotel_${hotel.id}`) || "{}"
-      );
+  const fieldValueStyle = {
+    fill: { fgColor: { rgb: "FFFFFF" } }, // White background
+    font: { sz: 10, color: { rgb: "1F2937" } },
+    alignment: { horizontal: "right", vertical: "center" },
+    border: {
+      top: { style: "thin", color: { rgb: "D1D5DB" } },
+      bottom: { style: "thin", color: { rgb: "D1D5DB" } },
+      left: { style: "thin", color: { rgb: "D1D5DB" } },
+      right: { style: "thin", color: { rgb: "D1D5DB" } }
+    }
+  };
 
-      donneesExportation.push({
-        الفندق: hotel.name,
-        الحقل: "اسم الفندق",
-        القيمة: hotel.name,
-      });
+  const emptyValueStyle = {
+    fill: { fgColor: { rgb: "FEF2F2" } }, // Light red background for empty values
+    font: { sz: 10, color: { rgb: "DC2626" }, italic: true },
+    alignment: { horizontal: "center", vertical: "center" },
+    border: {
+      top: { style: "thin", color: { rgb: "D1D5DB" } },
+      bottom: { style: "thin", color: { rgb: "D1D5DB" } },
+      left: { style: "thin", color: { rgb: "D1D5DB" } },
+      right: { style: "thin", color: { rgb: "D1D5DB" } }
+    }
+  };
 
-      donneesExportation.push({
-        الفندق: hotel.name,
-        الحقل: "فئة الفندق",
-        القيمة: hotel.category,
-      });
+  // Main header
+  setCellWithStyle(`A${currentRow}`, "تفاصيل الفندق", headerStyle);
+  setCellWithStyle(`B${currentRow}`, "", headerStyle);
+  setCellWithStyle(`C${currentRow}`, "", headerStyle);
+  ws['!merges'] = [{ s: { c: 0, r: currentRow - 1 }, e: { c: 2, r: currentRow - 1 } }];
+  currentRow += 2;
 
-      donneesExportation.push({
-        الفندق: hotel.name,
-        الحقل: "منطقة الفندق",
-        القيمة: hotel.district,
-      });
+  // Hotel basic info
+  setCellWithStyle(`A${currentRow}`, "اسم الفندق", fieldLabelStyle);
+  setCellWithStyle(`B${currentRow}`, donneesHotelSelectionne?.name || "", fieldValueStyle);
+  setCellWithStyle(`C${currentRow}`, "", fieldValueStyle);
+  currentRow++;
 
-      tousLesChamps.forEach((champ) => {
-        donneesExportation.push({
-          الفندق: hotel.name,
-          الحقل: champ,
-          القيمة: donneesHotel[champ] || "",
-        });
-      });
 
-      donneesExportation.push({ الفندق: "", الحقل: "", القيمة: "" });
+  // Process categories
+  const allCategories = {
+    ...categoriesChamps,
+    ...generateRoomTypeCategories()
+  };
+
+  Object.entries(allCategories).forEach(([categoryName, categoryData]) => {
+    if (categoryName === "أنواع الغرف والأجنحة") return;
+    
+    // Category header
+    setCellWithStyle(`A${currentRow}`, categoryName, categoryHeaderStyle);
+    setCellWithStyle(`B${currentRow}`, "", categoryHeaderStyle);
+    setCellWithStyle(`C${currentRow}`, "", categoryHeaderStyle);
+    ws['!merges'] = ws['!merges'] || [];
+    ws['!merges'].push({ s: { c: 0, r: currentRow - 1 }, e: { c: 2, r: currentRow - 1 } });
+    currentRow++;
+
+    // Table headers
+    setCellWithStyle(`A${currentRow}`, "الحقل", fieldLabelStyle);
+    setCellWithStyle(`B${currentRow}`, "القيمة", fieldLabelStyle);
+    setCellWithStyle(`C${currentRow}`, "الحالة", fieldLabelStyle);
+    currentRow++;
+
+    // Category fields
+    categoryData.fields.forEach(field => {
+      const value = donneesActuelles[field] || "";
+      const isEmpty = !value.trim();
+      
+      setCellWithStyle(`A${currentRow}`, field, fieldLabelStyle);
+      setCellWithStyle(`B${currentRow}`, value || "غير مكتمل", isEmpty ? emptyValueStyle : fieldValueStyle);
+      setCellWithStyle(`C${currentRow}`, isEmpty ? "❌ ناقص" : "✅ مكتمل", isEmpty ? emptyValueStyle : fieldValueStyle);
+      currentRow++;
     });
 
-    const ws = XLSX.utils.json_to_sheet(donneesExportation);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "بيانات جميع الفنادق");
-    XLSX.writeFile(wb, "البيانات_الكاملة_جميع_الفنادق.xlsx");
-  };
+    currentRow++; // Empty row between categories
+  });
+
+  // Custom fields section
+  if (champsPersonnalises.length > 0) {
+    setCellWithStyle(`A${currentRow}`, "الحقول المخصصة", categoryHeaderStyle);
+    setCellWithStyle(`B${currentRow}`, "", categoryHeaderStyle);
+    setCellWithStyle(`C${currentRow}`, "", categoryHeaderStyle);
+    ws['!merges'] = ws['!merges'] || [];
+    ws['!merges'].push({ s: { c: 0, r: currentRow - 1 }, e: { c: 2, r: currentRow - 1 } });
+    currentRow++;
+
+    setCellWithStyle(`A${currentRow}`, "الحقل", fieldLabelStyle);
+    setCellWithStyle(`B${currentRow}`, "القيمة", fieldLabelStyle);
+    setCellWithStyle(`C${currentRow}`, "الحالة", fieldLabelStyle);
+    currentRow++;
+
+    champsPersonnalises.forEach(field => {
+      const value = donneesActuelles[field] || "";
+      const isEmpty = !value.trim();
+      
+      setCellWithStyle(`A${currentRow}`, field, fieldLabelStyle);
+      setCellWithStyle(`B${currentRow}`, value || "غير مكتمل", isEmpty ? emptyValueStyle : fieldValueStyle);
+      setCellWithStyle(`C${currentRow}`, isEmpty ? "❌ ناقص" : "✅ مكتمل", isEmpty ? emptyValueStyle : fieldValueStyle);
+      currentRow++;
+    });
+  }
+
+  // Set worksheet range
+  ws['!ref'] = `A1:C${currentRow - 1}`;
+
+  // Set column widths
+  ws['!cols'] = [
+    { width: 40 }, // Column A - Field names
+    { width: 30 }, // Column B - Values
+    { width: 15 }  // Column C - Status
+  ];
+
+  // Add worksheet to workbook
+  XLSX.utils.book_append_sheet(wb, ws, "بيانات الفندق");
+
+  // Save file
+  XLSX.writeFile(wb, `${donneesHotelSelectionne?.name.replace(/[^a-zA-Z0-9]/g, "_")}_بيانات_مفصلة.xlsx`);
+};
+
+
 
   // Fonctions d'aide
 
@@ -751,13 +828,7 @@ const GestionnaireHotels = () => {
                   <Download className="w-5 h-5" />
                   تصدير الفندق
                 </button>
-                <button
-                  onClick={exporterTousLesHotels}
-                  className="bg-gradient-to-r from-gray-700 to-gray-800 hover:from-gray-800 hover:to-gray-900 text-white px-6 py-3 rounded-xl font-semibold flex items-center gap-2 transition-all transform hover:scale-105 shadow-lg"
-                >
-                  <Download className="w-5 h-5" />
-                  تصدير جميع الفنادق
-                </button>
+         
               </div>
 
               <div className="flex items-center gap-3 bg-white/90 rounded-xl p-3 border-2 border-yellow-300">
