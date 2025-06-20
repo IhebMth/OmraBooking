@@ -70,7 +70,7 @@ const GestionnaireHotels = () => {
         "المسافة إلى أبراج البيت (متر)",
         "المسافة إلى الجمرات (بالمتر)",
         "اسم مكتب الصرافة / المسافة (م)",
-        "  مول أبراج البيت – المسافة (بالمتر)",
+        " مول أبراج البيت – المسافة (بالمتر)",
       ],
     },
     "الخدمات القريبة": {
@@ -86,9 +86,37 @@ const GestionnaireHotels = () => {
         "المسافة إلى المول",
         "أقرب أبواب الحرم (الاسم / المسافة)",
         "المساجد القريبة (الاسم / المسافة)",
-        "صالون حلاقة على بعد 200 متر",
       ],
     },
+    "الإطلالات والإقامة": {
+      icon: <Eye className="w-5 h-5" />,
+      color: "from-amber-600 to-yellow-700",
+      fields: [
+        "إطلالة على الكعبة متوفرة",
+        "إطلالة جزئية على الكعبة",
+        "إطلالة عادية على الكعبة",
+        "إطلالة بانورامية على الكعبة",
+        "إطلالة على الحرم",
+        "فندق يمكن الوصول إليه سيراً على الأقدام",
+        "ما هي الإطلالات المتوفرة في الغرف؟",
+      ],
+    },
+
+    "الصلاة والمساجد": {
+      icon: <Building className="w-5 h-5" />,
+      color: "from-green-500 to-emerald-600",
+      fields: [
+        "هل يوجد مصلى داخل الفندق؟",
+        "هل المصلى متصل بالحرم؟",
+        "هل للمصلى إطلالة بانورامية على الحرم؟",
+        "هل يُذاع الأذان داخل الفندق؟",
+        "هل يُذاع الأذان في الغرف؟",
+        "هل يوجد مسجد آخر قريب من الفندق (أقل من 200 متر)؟",
+        "هل يوجد سجادة صلاة في الغرفة؟",
+        "هل يوجد مصحف في الغرفة؟",
+      ],
+    },
+
     "خدمات النقل ومواقف السيارات": {
       icon: <Car className="w-5 h-5" />,
       color: "from-gray-700 to-gray-800",
@@ -106,54 +134,9 @@ const GestionnaireHotels = () => {
         "هل يوجد خدمة نقل بين مكة/المدينة والمطار في الفندق؟",
       ],
     },
-
-    "الإطلالات والإقامة": {
-      icon: <Eye className="w-5 h-5" />,
-      color: "from-amber-600 to-yellow-700",
-      fields: [
-        "إطلالة على الكعبة متوفرة",
-        "إطلالة جزئية على الكعبة",
-        "إطلالة عادية على الكعبة",
-        "إطلالة بانورامية على الكعبة",
-        "إطلالة على الحرم",
-        "فندق يمكن الوصول إليه سيراً على الأقدام",
-        "ما هي الإطلالات المتوفرة في الغرف؟",
-      ],
-    },
-    "الصلاة والمساجد": {
-      icon: <Building className="w-5 h-5" />,
-      color: "from-green-500 to-emerald-600",
-      fields: [
-        "هل يوجد مصلى داخل الفندق؟",
-        "هل المصلى متصل بالحرم؟",
-        "هل للمصلى إطلالة بانورامية على الحرم؟",
-        "هل يُذاع الأذان داخل الفندق؟",
-        "هل يُذاع الأذان في الغرف؟",
-        "هل يوجد مسجد آخر قريب من الفندق (أقل من 200 متر)؟",
-        "هل يوجد سجادة صلاة في الغرفة؟",
-        "هل يوجد مصحف في الغرفة؟",
-      ],
-    },
-
-    "الطعام والشراب": {
-      icon: <Utensils className="w-5 h-5" />,
-      color: "from-yellow-600 to-amber-700",
-      fields: [
-        "مطعم (الاسم / نوع المأكولات)",
-        "المطاعم والمقاهي (الاسم / المسافة)",
-        "السحور والإفطار مشمولان",
-        "اسم المطعم الأول",
-        "نوع المأكولات في المطعم الأول",
-        "اسم المطعم الثاني",
-        "نوع المأكولات في المطعم الثاني",
-        "اسم المطعم الثالث",
-        "نوع المأكولات في المطعم الثالث",
-        "هل يقدم الفندق السحور والإفطار في رمضان؟",
-      ],
-    },
     "مرافق الفندق": {
       icon: <Star className="w-5 h-5" />,
-      color: "from-amber-500 to-yellow-500",
+      color: "from-orange-500 to-rose-600",
       fields: [
         "سبا",
         "ساونا",
@@ -162,15 +145,14 @@ const GestionnaireHotels = () => {
         "مسبح",
         "كرسي تدليك",
         "تدليك القدمين متوفر",
-        "صالون حلاقة/معهد تجميل",
         "مركز أعمال",
-        "حضانة أطفال متوفرة في الفندق",
         "هل يوجد روضة أطفال داخل الفندق؟",
         "هل يتوفر واي فاي مجاني داخل الفندق؟",
         "منطقة لتخزين الأمتعة",
         "صالة رياضية",
         "منطقة مخصصة للتدخين",
         "خدمة غسيل الملابس",
+        "قاعة اجتماعات",
         "قاعة مؤتمرات",
         "خدمة الفاكس وتصوير المستندات",
         "مركز خدمات رجال الأعمال",
@@ -182,7 +164,22 @@ const GestionnaireHotels = () => {
       fields: [
         "هل يوجد صالون حلاقة داخل الفندق؟",
         "هل يوجد صالون حلاقة قريب من الفندق (أقل من 200 متر)؟",
+                "حضانة أطفال متوفرة في الفندق",
         "ما هو العمر الأدنى للأطفال للحصول على الإقامة المجانية؟",
+      ],
+    },
+
+    "المطاعم والمقاهي": {
+      icon: <Utensils className="w-5 h-5" />,
+      color: "from-red-500 to-pink-600",
+      fields: [
+        "اسم المطعم الأول",
+        "نوع المأكولات في المطعم الأول",
+        "اسم المطعم الثاني",
+        "نوع المأكولات في المطعم الثاني",
+        "اسم المطعم الثالث",
+        "نوع المأكولات في المطعم الثالث",
+        "هل يقدم الفندق السحور والإفطار في رمضان؟",
       ],
     },
     "معلومات الغرف": {
@@ -198,7 +195,6 @@ const GestionnaireHotels = () => {
         "كم عدد الحمامات؟",
         "هل يوجد زاوية مطبخ في الغرف؟",
         "هل يوجد ثلاجة في الغرف؟",
-        "كم عدد مآخذ الكهرباء في الغرف؟",
         "هل يتوفر مجفف شعر في الحمام؟",
         "هل يوجد خزنة داخل الغرف؟",
         "هل يوجد آلة صنع القهوة؟",
@@ -212,6 +208,46 @@ const GestionnaireHotels = () => {
     },
   };
 
+  // Bed type and room category options
+const bedTypeOptions = [
+  { value: "", label: "اختر نوع السرير..." },
+  { value: "canapé-lit", label: "Canapé-lit — أريكة تتحول إلى سرير" },
+  { value: "lit-baldaquin", label: "Lit à baldaquin — سرير مغطّى (بأعمدة وستائر)" },
+  { value: "lit-appoint", label: "Lit d'appoint — سرير إضافي" },
+  { value: "lit-jour", label: "Lit de jour — سرير نهاري" },
+  { value: "lit-double", label: "Lit double — سرير مزدوج" },
+  { value: "lit-escamotable", label: "Lit escamotable — سرير قابل للطيّ (أو سرير جداري)" },
+  { value: "lit-king", label: "Lit king — سرير كينغ" },
+  { value: "lit-queen", label: "Lit queen — سرير كوين" },
+  { value: "lit-simple", label: "Lit simple — سرير مفرد" },
+  { value: "lit-jumeaux", label: "Lit jumeaux — سريران توأم" },
+  { value: "lit-triple", label: "Lit triple — سرير ثلاثي" },
+  { value: "lits-superposes", label: "Lits superposés — أسرّة بطابقين" }
+];
+
+const roomCategoryOptions = [
+  { value: "", label: "اختر فئة الغرفة..." },
+  { value: "royale", label: "Royale — ملكيّة" },
+  { value: "deluxe", label: "Deluxe — ديلوكس" },
+  { value: "standard", label: "Standard — قياسي" },
+  { value: "ambassadeur", label: "Ambassadeur — سفير" },
+  { value: "classique", label: "Classique — كلاسيكي" },
+  { value: "confort", label: "Confort — مريح" },
+  { value: "diplomatique", label: "Diplomatique — دبلوماسي" },
+  { value: "executive", label: "Executive — تنفيذي" },
+  { value: "familiale", label: "Familiale — عائلي" },
+  { value: "junior", label: "Junior — جونيور" },
+  { value: "panoramique", label: "Panoramique — بانورامي" },
+  { value: "pmr", label: "PMR — لذوي الاحتياجات الخاصة" },
+  { value: "premium", label: "Premium — بريميوم" },
+  { value: "presidentielle", label: "Présidentielle — رئاسي" },
+  { value: "prince", label: "Prince — أميري" },
+  { value: "residentielle", label: "Résidentielle — سكني" },
+  { value: "signature", label: "Signature — سيغنتشر (أو مميّز)" },
+  { value: "studio", label: "Studio — استوديو" },
+  { value: "superieur", label: "Supérieur — فاخر (أو سوبريور)" },
+  { value: "tour", label: "Tour" }
+];
   const generateRoomTypeCategories = () => {
     const roomTypeCategories = {};
 
@@ -227,7 +263,8 @@ const GestionnaireHotels = () => {
           `النوع ${i} - ما نوع الإطلالة؟`,
           `النوع ${i} - كم عدد الأشخاص الذين يمكن أن يشغلوا هذه الغرفة أو الجناح؟`,
           `النوع ${i} - ما مساحة الغرفة؟`,
-          `النوع ${i} - ما اسم السرير؟ (كينغ سايز، سرير مزدوج، إلخ...)`,
+           `النوع ${i} - نوع السرير`,
+          `النوع ${i} - فئة الغرفة`,
           `النوع ${i} - ما عدد الأسرة في الغرفة؟`,
           `النوع ${i} - ما عرض السرير؟`,
           `النوع ${i} - هل توجد سجادة صلاة، قرآن كريم، واتجاه القبلة معروض في الغرفة؟`,
@@ -382,8 +419,8 @@ const GestionnaireHotels = () => {
     }
   };
 
-  // Exporter les données d'un seul hôtel
-  const exporterVersExcel = () => {
+ // Replace the entire exporterVersExcel function with this:
+const exporterVersExcel = () => {
   if (!hotelSelectionne) {
     alert("يرجى اختيار فندق أولاً!");
     return;
@@ -392,89 +429,13 @@ const GestionnaireHotels = () => {
   const donneesHotelSelectionne = hotels.find(h => h.id === hotelSelectionne);
   const wb = XLSX.utils.book_new();
   
-  // Create worksheet
-  const ws = {};
-  let currentRow = 1;
+  const data = [];
 
-  // Helper function to set cell value and style
-  const setCellWithStyle = (ref, value, style = {}) => {
-    ws[ref] = { v: value, t: 's', s: style };
-  };
-
-  // Define styles
-  const headerStyle = {
-    fill: { fgColor: { rgb: "FFD700" } }, // Gold background
-    font: { bold: true, sz: 14, color: { rgb: "000000" } },
-    alignment: { horizontal: "center", vertical: "center" },
-    border: {
-      top: { style: "thick", color: { rgb: "000000" } },
-      bottom: { style: "thick", color: { rgb: "000000" } },
-      left: { style: "thick", color: { rgb: "000000" } },
-      right: { style: "thick", color: { rgb: "000000" } }
-    }
-  };
-
-  const categoryHeaderStyle = {
-    fill: { fgColor: { rgb: "4F46E5" } }, // Indigo background
-    font: { bold: true, sz: 12, color: { rgb: "FFFFFF" } },
-    alignment: { horizontal: "center", vertical: "center" },
-    border: {
-      top: { style: "medium", color: { rgb: "000000" } },
-      bottom: { style: "medium", color: { rgb: "000000" } },
-      left: { style: "medium", color: { rgb: "000000" } },
-      right: { style: "medium", color: { rgb: "000000" } }
-    }
-  };
-
-  const fieldLabelStyle = {
-    fill: { fgColor: { rgb: "F3F4F6" } }, // Light gray background
-    font: { bold: true, sz: 10, color: { rgb: "374151" } },
-    alignment: { horizontal: "right", vertical: "center" },
-    border: {
-      top: { style: "thin", color: { rgb: "D1D5DB" } },
-      bottom: { style: "thin", color: { rgb: "D1D5DB" } },
-      left: { style: "thin", color: { rgb: "D1D5DB" } },
-      right: { style: "thin", color: { rgb: "D1D5DB" } }
-    }
-  };
-
-  const fieldValueStyle = {
-    fill: { fgColor: { rgb: "FFFFFF" } }, // White background
-    font: { sz: 10, color: { rgb: "1F2937" } },
-    alignment: { horizontal: "right", vertical: "center" },
-    border: {
-      top: { style: "thin", color: { rgb: "D1D5DB" } },
-      bottom: { style: "thin", color: { rgb: "D1D5DB" } },
-      left: { style: "thin", color: { rgb: "D1D5DB" } },
-      right: { style: "thin", color: { rgb: "D1D5DB" } }
-    }
-  };
-
-  const emptyValueStyle = {
-    fill: { fgColor: { rgb: "FEF2F2" } }, // Light red background for empty values
-    font: { sz: 10, color: { rgb: "DC2626" }, italic: true },
-    alignment: { horizontal: "center", vertical: "center" },
-    border: {
-      top: { style: "thin", color: { rgb: "D1D5DB" } },
-      bottom: { style: "thin", color: { rgb: "D1D5DB" } },
-      left: { style: "thin", color: { rgb: "D1D5DB" } },
-      right: { style: "thin", color: { rgb: "D1D5DB" } }
-    }
-  };
-
-  // Main header
-  setCellWithStyle(`A${currentRow}`, "تفاصيل الفندق", headerStyle);
-  setCellWithStyle(`B${currentRow}`, "", headerStyle);
-  setCellWithStyle(`C${currentRow}`, "", headerStyle);
-  ws['!merges'] = [{ s: { c: 0, r: currentRow - 1 }, e: { c: 2, r: currentRow - 1 } }];
-  currentRow += 2;
-
-  // Hotel basic info
-  setCellWithStyle(`A${currentRow}`, "اسم الفندق", fieldLabelStyle);
-  setCellWithStyle(`B${currentRow}`, donneesHotelSelectionne?.name || "", fieldValueStyle);
-  setCellWithStyle(`C${currentRow}`, "", fieldValueStyle);
-  currentRow++;
-
+  // Header
+  data.push(['تفاصيل الفندق', '']);
+  data.push(['', '']);
+  data.push(['اسم الفندق', donneesHotelSelectionne?.name || '']);
+  data.push(['', '']);
 
   // Process categories
   const allCategories = {
@@ -484,76 +445,50 @@ const GestionnaireHotels = () => {
 
   Object.entries(allCategories).forEach(([categoryName, categoryData]) => {
     if (categoryName === "أنواع الغرف والأجنحة") return;
-    
-    // Category header
-    setCellWithStyle(`A${currentRow}`, categoryName, categoryHeaderStyle);
-    setCellWithStyle(`B${currentRow}`, "", categoryHeaderStyle);
-    setCellWithStyle(`C${currentRow}`, "", categoryHeaderStyle);
-    ws['!merges'] = ws['!merges'] || [];
-    ws['!merges'].push({ s: { c: 0, r: currentRow - 1 }, e: { c: 2, r: currentRow - 1 } });
-    currentRow++;
 
-    // Table headers
-    setCellWithStyle(`A${currentRow}`, "الحقل", fieldLabelStyle);
-    setCellWithStyle(`B${currentRow}`, "القيمة", fieldLabelStyle);
-    setCellWithStyle(`C${currentRow}`, "الحالة", fieldLabelStyle);
-    currentRow++;
+    // Category header
+    data.push([`=== ${categoryName} ===`, '']);
+    data.push(['الحقل', 'القيمة']);
 
     // Category fields
     categoryData.fields.forEach(field => {
       const value = donneesActuelles[field] || "";
-      const isEmpty = !value.trim();
-      
-      setCellWithStyle(`A${currentRow}`, field, fieldLabelStyle);
-      setCellWithStyle(`B${currentRow}`, value || "غير مكتمل", isEmpty ? emptyValueStyle : fieldValueStyle);
-      setCellWithStyle(`C${currentRow}`, isEmpty ? "❌ ناقص" : "✅ مكتمل", isEmpty ? emptyValueStyle : fieldValueStyle);
-      currentRow++;
+      data.push([
+        field,
+        value || "غير مكتمل"
+      ]);
     });
 
-    currentRow++; // Empty row between categories
+    data.push(['', '']); // Empty row
   });
 
-  // Custom fields section
+  // Custom fields
   if (champsPersonnalises.length > 0) {
-    setCellWithStyle(`A${currentRow}`, "الحقول المخصصة", categoryHeaderStyle);
-    setCellWithStyle(`B${currentRow}`, "", categoryHeaderStyle);
-    setCellWithStyle(`C${currentRow}`, "", categoryHeaderStyle);
-    ws['!merges'] = ws['!merges'] || [];
-    ws['!merges'].push({ s: { c: 0, r: currentRow - 1 }, e: { c: 2, r: currentRow - 1 } });
-    currentRow++;
-
-    setCellWithStyle(`A${currentRow}`, "الحقل", fieldLabelStyle);
-    setCellWithStyle(`B${currentRow}`, "القيمة", fieldLabelStyle);
-    setCellWithStyle(`C${currentRow}`, "الحالة", fieldLabelStyle);
-    currentRow++;
+    data.push(['=== الحقول المخصصة ===', '']);
+    data.push(['الحقل', 'القيمة']);
 
     champsPersonnalises.forEach(field => {
       const value = donneesActuelles[field] || "";
-      const isEmpty = !value.trim();
-      
-      setCellWithStyle(`A${currentRow}`, field, fieldLabelStyle);
-      setCellWithStyle(`B${currentRow}`, value || "غير مكتمل", isEmpty ? emptyValueStyle : fieldValueStyle);
-      setCellWithStyle(`C${currentRow}`, isEmpty ? "❌ ناقص" : "✅ مكتمل", isEmpty ? emptyValueStyle : fieldValueStyle);
-      currentRow++;
+      data.push([
+        field,
+        value || "غير مكتمل"
+      ]);
     });
   }
 
-  // Set worksheet range
-  ws['!ref'] = `A1:C${currentRow - 1}`;
+  // Create worksheet from array
+  const ws = XLSX.utils.aoa_to_sheet(data);
 
-  // Set column widths
+  // Set column widths for only 2 columns now
   ws['!cols'] = [
-    { width: 40 }, // Column A - Field names
-    { width: 30 }, // Column B - Values
-    { width: 15 }  // Column C - Status
+    { width: 40 }, // Column A - Field name
+    { width: 30 }  // Column B - Value
   ];
 
-  // Add worksheet to workbook
   XLSX.utils.book_append_sheet(wb, ws, "بيانات الفندق");
-
-  // Save file
   XLSX.writeFile(wb, `${donneesHotelSelectionne?.name.replace(/[^a-zA-Z0-9]/g, "_")}_بيانات_مفصلة.xlsx`);
 };
+;
 
 
 
@@ -918,29 +853,70 @@ const GestionnaireHotels = () => {
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {champsAAfficher.map((champ) => (
-                          <div key={champ} className="space-y-2">
-                            <label className="block text-gray-800 text-sm font-semibold">
-                              {champ}
-                              {!donneesActuelles[champ]?.trim() && (
-                                <span className="text-red-500 ml-1">*</span>
-                              )}
-                            </label>
-                            <input
-                              type="text"
-                              value={donneesActuelles[champ] || ""}
-                              onChange={(e) =>
-                                gererChangementChamp(champ, e.target.value)
-                              }
-                              className="w-full p-3 rounded-lg bg-gray-50 border-2 border-yellow-400 text-gray-800 placeholder-gray-500 focus:border-amber-500 focus:ring-2 focus:ring-yellow-200 transition-all"
-                              placeholder={`أدخل ${champ.toLowerCase()}...`}
-                              data-field={champ}
-                              onFocus={() => setChampEnCoursEdition(champ)}
-                              onBlur={() => setChampEnCoursEdition("")}
-                            />
-                          </div>
-                        ))}
-                      </div>
+  {champsAAfficher.map((champ) => {
+    const isBedTypeField = champ.includes("نوع السرير");
+    const isRoomCategoryField = champ.includes("فئة الغرفة");
+    
+    return (
+      <div key={champ} className="space-y-2">
+        <label className="block text-gray-800 text-sm font-semibold">
+          {champ}
+          {!donneesActuelles[champ]?.trim() && (
+            <span className="text-red-500 ml-1">*</span>
+          )}
+        </label>
+        {isBedTypeField ? (
+          <select
+            value={donneesActuelles[champ] || ""}
+            onChange={(e) =>
+              gererChangementChamp(champ, e.target.value)
+            }
+            className="w-full p-3 rounded-lg bg-gray-50 border-2 border-yellow-400 text-gray-800 focus:border-amber-500 focus:ring-2 focus:ring-yellow-200 transition-all"
+            onFocus={() => setChampEnCoursEdition(champ)}
+            onBlur={() => setChampEnCoursEdition("")}
+            data-field={champ}
+          >
+            {bedTypeOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        ) : isRoomCategoryField ? (
+          <select
+            value={donneesActuelles[champ] || ""}
+            onChange={(e) =>
+              gererChangementChamp(champ, e.target.value)
+            }
+            className="w-full p-3 rounded-lg bg-gray-50 border-2 border-yellow-400 text-gray-800 focus:border-amber-500 focus:ring-2 focus:ring-yellow-200 transition-all"
+            onFocus={() => setChampEnCoursEdition(champ)}
+            onBlur={() => setChampEnCoursEdition("")}
+            data-field={champ}
+          >
+            {roomCategoryOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        ) : (
+          <input
+            type="text"
+            value={donneesActuelles[champ] || ""}
+            onChange={(e) =>
+              gererChangementChamp(champ, e.target.value)
+            }
+            className="w-full p-3 rounded-lg bg-gray-50 border-2 border-yellow-400 text-gray-800 placeholder-gray-500 focus:border-amber-500 focus:ring-2 focus:ring-yellow-200 transition-all"
+            placeholder={`أدخل ${champ.toLowerCase()}...`}
+            data-field={champ}
+            onFocus={() => setChampEnCoursEdition(champ)}
+            onBlur={() => setChampEnCoursEdition("")}
+          />
+        )}
+      </div>
+    );
+  })}
+</div>
                     </div>
                   );
                 })}
