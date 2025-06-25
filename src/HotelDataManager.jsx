@@ -44,6 +44,7 @@ const GestionnaireHotels = () => {
       icon: <Hotel className="w-5 h-5" />,
       color: "from-blue-500 to-indigo-600",
       fields: [
+        "مرسل من قبل",
         " عدد النجوم",
         "سلسلة الفنادق التابعة لها",
         "البريد الإلكتروني للفندق",
@@ -66,26 +67,22 @@ const GestionnaireHotels = () => {
         "المسافة إلى منى(متر)",
         "المسافة إلى محطة القطار (متر)",
         "المسافة إلى محطة القطار (دقائق)",
-        "المسافة إلى أقرب مسجد (متر) / اسم ",
-        "المسافة إلى أبراج البيت (متر)",
+        "المسافة إلى أقرب مسجد (باستثناء الحرم) / الاسم",
         "المسافة إلى الجمرات (بالمتر)",
-        "اسم مكتب الصرافة / المسافة (م)",
-        " مول أبراج البيت – المسافة (بالمتر)",
+                "أقرب أبواب الحرم (الاسم / المسافة)",
       ],
     },
     "الخدمات القريبة": {
       icon: <Building className="w-5 h-5" />,
       color: "from-gray-600 to-gray-700",
       fields: [
+                "اسم مكتب الصرافة / المسافة (م)",
         "اسم المستشفى",
         "المسافة إلى المستشفى",
         "اسم الصيدلية",
         "المسافة إلى الصيدلية",
-        "أقرب مركز تجاري (مول)",
-        "اسم المول",
-        "المسافة إلى المول",
-        "أقرب أبواب الحرم (الاسم / المسافة)",
-        "المساجد القريبة (الاسم / المسافة)",
+        " مول أبراج البيت – المسافة (بالمتر)",
+
       ],
     },
     "الإطلالات والإقامة": {
@@ -152,6 +149,8 @@ const GestionnaireHotels = () => {
         "صالة رياضية",
         "منطقة مخصصة للتدخين",
         "خدمة غسيل الملابس",
+        "خدمة تحويل العملات",
+        "التنظيف الجاف",
         "قاعة اجتماعات",
         "قاعة مؤتمرات",
         "خدمة الفاكس وتصوير المستندات",
@@ -164,7 +163,7 @@ const GestionnaireHotels = () => {
       fields: [
         "هل يوجد صالون حلاقة داخل الفندق؟",
         "هل يوجد صالون حلاقة قريب من الفندق (أقل من 200 متر)؟",
-                "حضانة أطفال متوفرة في الفندق",
+        "حضانة أطفال متوفرة في الفندق",
         "ما هو العمر الأدنى للأطفال للحصول على الإقامة المجانية؟",
       ],
     },
@@ -209,45 +208,278 @@ const GestionnaireHotels = () => {
   };
 
   // Bed type and room category options
-const bedTypeOptions = [
-  { value: "", label: "اختر نوع السرير..." },
-  { value: "canapé-lit", label: "Canapé-lit — أريكة تتحول إلى سرير" },
-  { value: "lit-baldaquin", label: "Lit à baldaquin — سرير مغطّى (بأعمدة وستائر)" },
-  { value: "lit-appoint", label: "Lit d'appoint — سرير إضافي" },
-  { value: "lit-jour", label: "Lit de jour — سرير نهاري" },
-  { value: "lit-double", label: "Lit double — سرير مزدوج" },
-  { value: "lit-escamotable", label: "Lit escamotable — سرير قابل للطيّ (أو سرير جداري)" },
-  { value: "lit-king", label: "Lit king — سرير كينغ" },
-  { value: "lit-queen", label: "Lit queen — سرير كوين" },
-  { value: "lit-simple", label: "Lit simple — سرير مفرد" },
-  { value: "lit-jumeaux", label: "Lit jumeaux — سريران توأم" },
-  { value: "lit-triple", label: "Lit triple — سرير ثلاثي" },
-  { value: "lits-superposes", label: "Lits superposés — أسرّة بطابقين" }
-];
+  const bedTypeOptions = [
+    { value: "", label: "اختر نوع السرير..." },
+    { value: "canapé-lit", label: "Canapé-lit — أريكة تتحول إلى سرير" },
+    {
+      value: "lit-baldaquin",
+      label: "Lit à baldaquin — سرير مغطّى (بأعمدة وستائر)",
+    },
+    { value: "lit-appoint", label: "Lit d'appoint — سرير إضافي" },
+    { value: "lit-jour", label: "Lit de jour — سرير نهاري" },
+    { value: "lit-double", label: "Lit double — سرير مزدوج" },
+    {
+      value: "lit-escamotable",
+      label: "Lit escamotable — سرير قابل للطيّ (أو سرير جداري)",
+    },
+    { value: "lit-king", label: "Lit king — سرير كينغ" },
+    { value: "lit-queen", label: "Lit queen — سرير كوين" },
+    { value: "lit-simple", label: "Lit simple — سرير مفرد" },
+    { value: "lit-jumeaux", label: "Lit jumeaux — سريران توأم" },
+    { value: "lit-triple", label: "Lit triple — سرير ثلاثي" },
+    { value: "lits-superposes", label: "Lits superposés — أسرّة بطابقين" },
+  ];
 
-const roomCategoryOptions = [
-  { value: "", label: "اختر فئة الغرفة..." },
-  { value: "royale", label: "Royale — ملكيّة" },
-  { value: "deluxe", label: "Deluxe — ديلوكس" },
-  { value: "standard", label: "Standard — قياسي" },
-  { value: "ambassadeur", label: "Ambassadeur — سفير" },
-  { value: "classique", label: "Classique — كلاسيكي" },
-  { value: "confort", label: "Confort — مريح" },
-  { value: "diplomatique", label: "Diplomatique — دبلوماسي" },
-  { value: "executive", label: "Executive — تنفيذي" },
-  { value: "familiale", label: "Familiale — عائلي" },
-  { value: "junior", label: "Junior — جونيور" },
-  { value: "panoramique", label: "Panoramique — بانورامي" },
-  { value: "pmr", label: "PMR — لذوي الاحتياجات الخاصة" },
-  { value: "premium", label: "Premium — بريميوم" },
-  { value: "presidentielle", label: "Présidentielle — رئاسي" },
-  { value: "prince", label: "Prince — أميري" },
-  { value: "residentielle", label: "Résidentielle — سكني" },
-  { value: "signature", label: "Signature — سيغنتشر (أو مميّز)" },
-  { value: "studio", label: "Studio — استوديو" },
-  { value: "superieur", label: "Supérieur — فاخر (أو سوبريور)" },
-  { value: "tour", label: "Tour" }
-];
+  const roomCategoryOptions = [
+    { value: "", label: "اختر فئة الغرفة..." },
+    { value: "royale", label: "Royale — ملكيّة" },
+    { value: "deluxe", label: "Deluxe — ديلوكس" },
+    { value: "standard", label: "Standard — قياسي" },
+    { value: "ambassadeur", label: "Ambassadeur — سفير" },
+    { value: "classique", label: "Classique — كلاسيكي" },
+    { value: "confort", label: "Confort — مريح" },
+    { value: "diplomatique", label: "Diplomatique — دبلوماسي" },
+    { value: "executive", label: "Executive — تنفيذي" },
+    { value: "familiale", label: "Familiale — عائلي" },
+    { value: "junior", label: "Junior — جونيور" },
+    { value: "panoramique", label: "Panoramique — بانورامي" },
+    { value: "pmr", label: "PMR — لذوي الاحتياجات الخاصة" },
+    { value: "premium", label: "Premium — بريميوم" },
+    { value: "presidentielle", label: "Présidentielle — رئاسي" },
+    { value: "prince", label: "Prince — أميري" },
+    { value: "residentielle", label: "Résidentielle — سكني" },
+    { value: "signature", label: "Signature — سيغنتشر (أو مميّز)" },
+    { value: "studio", label: "Studio — استوديو" },
+    { value: "superieur", label: "Supérieur — فاخر (أو سوبريور)" },
+    { value: "tour", label: "Tour" },
+  ];
+
+  const translationMap = {
+    "مرسل من قبل": "Envoi par",
+    "اسم الفندق": "Nom de l'hôtel",
+    "تفاصيل الفندق": "Détails de l'hôtel",
+    الحقل: "Champ",
+    القيمة: "Valeur",
+    "غير مكتمل": "Non complété",
+
+    // Categories
+    "معلومات الاتصال والفندق": "Informations de contact et hôtel",
+    "المسافة والموقع": "Distance et localisation",
+    "الخدمات القريبة": "Services à proximité",
+    "الإطلالات والإقامة": "Vues et hébergement",
+    "الصلاة والمساجد": "Prière et mosquées",
+    "خدمات النقل ومواقف السيارات": "Services de transport et parking",
+    "مرافق الفندق": "Équipements de l'hôtel",
+    "الخدمات المتعلقة بالعمرة": "Services liés à la Omra",
+    "المطاعم والمقاهي": "Restaurants et cafés",
+    "معلومات الغرف": "Informations sur les chambres",
+    "أنواع الغرف والأجنحة": "Types de chambres et suites",
+    "الحقول المخصصة": "Champs personnalisés",
+
+    // Contact and Hotel Info Fields
+    "عدد النجوم": "Nombre d'étoiles",
+    "سلسلة الفنادق التابعة لها": "Chaîne hôtelière",
+    "البريد الإلكتروني للفندق": "Email de l'hôtel",
+    "رقم الهاتف": "Numéro de téléphone",
+    "الموقع الإلكتروني": "Site web",
+    "عنوان الفندق": "Adresse de l'hôtel",
+   "الحي": "Quartier",
+    "اللغات التي يتحدث بها طاقم العمل": "Langues parlées par le personnel",
+    "كم عدد الأبراج؟": "Combien de tours ?",
+    "كم عدد الطوابق الفندق؟": "Combien d'étages dans l'hôtel ?",
+    "كم عدد المصاعد في الفندق؟": "Combien d'ascenseurs dans l'hôtel ?",
+
+    // Distance and Location Fields
+    "المسافة إلى الحرم المكي (متر)": "Distance vers la Mosquée sacrée (mètres)",
+    "المسافة إلى المطار (متر)": "Distance vers l'aéroport (mètres)",
+    "المسافة إلى منى(متر)": "Distance vers Mina (mètres)",
+    "المسافة إلى محطة القطار (متر)": "Distance vers la gare (mètres)",
+    "المسافة إلى محطة القطار (دقائق)": "Distance vers la gare (minutes)",
+"المسافة إلى أقرب مسجد (باستثناء الحرم) / الاسم":
+ "Distance jusqu’à la mosquée la plus proche (hors Haram) / Nom",
+    "المسافة إلى الجمرات (بالمتر)": "Distance vers Jamarat (mètres)",
+    "اسم مكتب الصرافة / المسافة (م)": "Nom du bureau de change / distance (m)",
+    "أقرب أبواب الحرم (الاسم / المسافة)":
+      "Portes les plus proches du Haram (nom / distance)",
+
+    // Nearby Services Fields
+    "اسم المستشفى": "Nom de l'hôpital",
+    "المسافة إلى المستشفى": "Distance vers l'hôpital",
+    "اسم الصيدلية": "Nom de la pharmacie",
+    "المسافة إلى الصيدلية": "Distance vers la pharmacie",
+    "مول أبراج البيت – المسافة (بالمتر)":
+      "Centre commercial Abraj Al-Bait – distance (mètres)",
+    "المساجد القريبة (الاسم / المسافة)": "Mosquées proches (nom / distance)",
+
+    // Views and Accommodation Fields
+    "إطلالة على الكعبة متوفرة": "Vue sur la Kaaba disponible",
+    "إطلالة جزئية على الكعبة": "Vue partielle sur la Kaaba",
+    "إطلالة عادية على الكعبة": "Vue normale sur la Kaaba",
+    "إطلالة بانورامية على الكعبة": "Vue panoramique sur la Kaaba",
+    "إطلالة على الحرم": "Vue sur le Haram",
+    "فندق يمكن الوصول إليه سيراً على الأقدام": "Hôtel accessible à pied",
+    "ما هي الإطلالات المتوفرة في الغرف؟":
+      "Quelles vues sont disponibles dans les chambres ?",
+
+    // Prayer and Mosques Fields
+    "هل يوجد مصلى داخل الفندق؟": "Y a-t-il une salle de prière dans l'hôtel ?",
+    "هل المصلى متصل بالحرم؟":
+      "La salle de prière est-elle connectée au Haram ?",
+    "هل للمصلى إطلالة بانورامية على الحرم؟":
+      "La salle de prière a-t-elle une vue panoramique sur le Haram ?",
+    "هل يُذاع الأذان داخل الفندق؟":
+      "L'appel à la prière est-il diffusé dans l'hôtel ?",
+    "هل يُذاع الأذان في الغرف؟":
+      "L'appel à la prière est-il diffusé dans les chambres ?",
+    "هل يوجد مسجد آخر قريب من الفندق (أقل من 200 متر)؟":
+      "Y a-t-il une autre mosquée près de l'hôtel (moins de 200 mètres) ?",
+    "هل يوجد سجادة صلاة في الغرفة؟":
+      "Y a-t-il un tapis de prière dans la chambre ?",
+    "هل يوجد مصحف في الغرفة؟": "Y a-t-il un Coran dans la chambre ?",
+
+    // Transport and Parking Fields
+    "هل توجد حافلة مجانية؟": "Y a-t-il un bus gratuit ?",
+    "هل توجد حافلة تعمل 24 ساعة؟": "Y a-t-il un bus 24h/24 ?",
+    "هل الحافلة مدفوعة؟": "Le bus est-il payant ?",
+    "هل توجد حافلة أثناء أوقات الصلاة؟":
+      "Y a-t-il un bus pendant les heures de prière ?",
+    "تتوقف الحافلات في غزة أو عند النفق":
+      "Les bus s'arrêtent à Gaza ou au tunnel",
+    "هل يوجد موقف سيارات؟": "Y a-t-il un parking ?",
+    "هل موقف السيارات مدفوع؟": "Le parking est-il payant ?",
+    "هل موقف السيارات مجاني؟": "Le parking est-il gratuit ?",
+    "هل موقف السيارات متاح أثناء أوقات الصلاة؟":
+      "Le parking est-il disponible pendant les heures de prière ?",
+    "هل يتوفر موقف للحافلات والفانات؟":
+      "Y a-t-il un parking pour bus et fourgonnettes ?",
+    "هل يوجد خدمة نقل بين مكة/المدينة والمطار في الفندق؟":
+      "Y a-t-il un service de navette entre La Mecque/Médine et l'aéroport ?",
+
+    // Hotel Facilities Fields
+    سبا: "Spa",
+    ساونا: "Sauna",
+    "حمام تركي": "Hammam turc",
+    "مركز لياقة بدنية": "Centre de fitness",
+    مسبح: "Piscine",
+    "كرسي تدليك": "Fauteuil de massage",
+    "تدليك القدمين متوفر": "Massage des pieds disponible",
+    "مركز أعمال": "Centre d'affaires",
+    "هل يوجد روضة أطفال داخل الفندق؟": "Y a-t-il une garderie dans l'hôtel ?",
+    "هل يتوفر واي فاي مجاني داخل الفندق؟":
+      "Y a-t-il le Wi-Fi gratuit dans l'hôtel ?",
+    "منطقة لتخزين الأمتعة": "Zone de stockage des bagages",
+    "صالة رياضية": "Salle de sport",
+    "منطقة مخصصة للتدخين": "Zone fumeurs",
+    "خدمة غسيل الملابس": "Service de blanchisserie",
+    "خدمة تحويل العملات": "Service de change",
+    "التنظيف الجاف": "Nettoyage à sec",
+    "قاعة اجتماعات": "Salle de réunion",
+    "قاعة مؤتمرات": "Salle de conférence",
+    "خدمة الفاكس وتصوير المستندات": "Service fax et photocopie",
+    "مركز خدمات رجال الأعمال": "Centre de services aux entreprises",
+
+    // Omra Services Fields
+    "هل يوجد صالون حلاقة داخل الفندق؟":
+      "Y a-t-il un salon de coiffure dans l'hôtel ?",
+    "هل يوجد صالون حلاقة قريب من الفندق (أقل من 200 متر)؟":
+      "Y a-t-il un salon de coiffure près de l'hôtel (moins de 200 mètres) ?",
+    "حضانة أطفال متوفرة في الفندق": "Garderie disponible dans l'hôtel",
+    "ما هو العمر الأدنى للأطفال للحصول على الإقامة المجانية؟":
+      "Quel est l'âge minimum pour l'hébergement gratuit des enfants ?",
+
+    // Restaurant and Cafe Fields
+    "اسم المطعم الأول": "Nom du premier restaurant",
+    "نوع المأكولات في المطعم الأول": "Type de cuisine du premier restaurant",
+    "اسم المطعم الثاني": "Nom du deuxième restaurant",
+    "نوع المأكولات في المطعم الثاني": "Type de cuisine du deuxième restaurant",
+    "اسم المطعم الثالث": "Nom du troisième restaurant",
+    "نوع المأكولات في المطعم الثالث": "Type de cuisine du troisième restaurant",
+    "هل يقدم الفندق السحور والإفطار في رمضان؟":
+      "L'hôtel sert-il le Suhoor et l'Iftar pendant le Ramadan ?",
+
+    // Room Information Fields
+    "اتجاه القبلة معروض في الغرفة":
+      "Direction de la Qibla affichée dans la chambre",
+    "هل يوجد غرف مناسبة للأشخاص ذوي الحركة المحدودة؟":
+      "Y a-t-il des chambres adaptées aux personnes à mobilité réduite ?",
+    "هل توجد أجنحة لـ 5 أشخاص في الفندق؟":
+      "Y a-t-il des suites pour 5 personnes dans l'hôtel ?",
+    "هل توجد غرف رباعية قياسية (4 أسرة) في الفندق؟":
+      "Y a-t-il des chambres quadruples standard (4 lits) dans l'hôtel ?",
+    "هل توجد غرف متصلة في الفندق؟":
+      "Y a-t-il des chambres communicantes dans l'hôtel ?",
+    "هل يوجد حوض غسيل منخفض مناسب للأشخاص ذوي الحركة المحدودة؟":
+      "Y a-t-il un lavabo bas adapté aux personnes à mobilité réduite ?",
+    "كم عدد الحمامات؟": "Combien de salles de bain ?",
+    "هل يوجد زاوية مطبخ في الغرف؟":
+      "Y a-t-il un coin cuisine dans les chambres ?",
+    "هل يوجد ثلاجة في الغرف؟": "Y a-t-il un réfrigérateur dans les chambres ?",
+    "هل يتوفر مجفف شعر في الحمام؟":
+      "Y a-t-il un sèche-cheveux dans la salle de bain ?",
+    "هل يوجد خزنة داخل الغرف؟": "Y a-t-il un coffre-fort dans les chambres ?",
+    "هل يوجد آلة صنع القهوة؟": "Y a-t-il une machine à café ?",
+
+    // Room type dynamic patterns
+    النوع: "Type",
+    "معلومات الغرفة/الجناح": "Informations chambre/suite",
+    "ما نوع الغرفة؟ (غرفة أو جناح)":
+      "Quel type de chambre ? (chambre ou suite)",
+    "إذا كان جناحًا، كم عدد الغرف فيه؟":
+      "Si c'est une suite, combien de chambres ?",
+    "ما نوع الإطلالة؟": "Quel type de vue ?",
+    "كم عدد الأشخاص الذين يمكن أن يشغلوا هذه الغرفة أو الجناح؟":
+      "Combien de personnes peuvent occuper cette chambre ou suite ?",
+    "ما مساحة الغرفة؟": "Quelle est la superficie de la chambre ?",
+    "نوع السرير": "Type de lit",
+    "فئة الغرفة": "Catégorie de chambre",
+    "ما عدد الأسرة في الغرفة؟": "Combien de lits dans la chambre ?",
+    "ما عرض السرير؟": "Quelle est la largeur du lit ?",
+    "هل توجد سجادة صلاة، قرآن كريم، واتجاه القبلة معروض في الغرفة؟":
+      "Y a-t-il un tapis de prière, un Coran et la direction de la Qibla dans la chambre ?",
+  };
+
+  const translateFieldName = (fieldName) => {
+  // Direct translation if exists
+  if (translationMap[fieldName]) {
+    return translationMap[fieldName];
+  }
+  
+  // Handle dynamic room type fields
+  const roomTypePattern = /^النوع (\d+) - (.+)$/;
+  const match = fieldName.match(roomTypePattern);
+  
+  if (match) {
+    const typeNumber = match[1];
+    const fieldPart = match[2];
+    const translatedFieldPart = translationMap[fieldPart] || fieldPart;
+    return `Type ${typeNumber} - ${translatedFieldPart}`;
+  }
+  
+  // Return original if no translation found
+  return fieldName;
+};
+
+const translateCategoryName = (categoryName) => {
+  // Direct translation if exists
+  if (translationMap[categoryName]) {
+    return translationMap[categoryName];
+  }
+  
+  // Handle dynamic room type categories
+  const roomTypeCategoryPattern = /^النوع (\d+) - (.+)$/;
+  const match = categoryName.match(roomTypeCategoryPattern);
+  
+  if (match) {
+    const typeNumber = match[1];
+    const categoryPart = match[2];
+    const translatedCategoryPart = translationMap[categoryPart] || categoryPart;
+    return `Type ${typeNumber} - ${translatedCategoryPart}`;
+  }
+  
+  return categoryName;
+};
+
+
   const generateRoomTypeCategories = () => {
     const roomTypeCategories = {};
 
@@ -263,7 +495,7 @@ const roomCategoryOptions = [
           `النوع ${i} - ما نوع الإطلالة؟`,
           `النوع ${i} - كم عدد الأشخاص الذين يمكن أن يشغلوا هذه الغرفة أو الجناح؟`,
           `النوع ${i} - ما مساحة الغرفة؟`,
-           `النوع ${i} - نوع السرير`,
+          `النوع ${i} - نوع السرير`,
           `النوع ${i} - فئة الغرفة`,
           `النوع ${i} - ما عدد الأسرة في الغرفة؟`,
           `النوع ${i} - ما عرض السرير؟`,
@@ -419,8 +651,8 @@ const roomCategoryOptions = [
     }
   };
 
- // Replace the entire exporterVersExcel function with this:
-const exporterVersExcel = () => {
+  // Replace the entire exporterVersExcel function with this:
+  const exporterVersExcel = () => {
   if (!hotelSelectionne) {
     alert("يرجى اختيار فندق أولاً!");
     return;
@@ -432,9 +664,9 @@ const exporterVersExcel = () => {
   const data = [];
 
   // Header
-  data.push(['تفاصيل الفندق', '']);
+  data.push([translationMap['تفاصيل الفندق'], '']);
   data.push(['', '']);
-  data.push(['اسم الفندق', donneesHotelSelectionne?.name || '']);
+  data.push([translationMap['اسم الفندق'], donneesHotelSelectionne?.name || '']);
   data.push(['', '']);
 
   // Process categories
@@ -446,16 +678,18 @@ const exporterVersExcel = () => {
   Object.entries(allCategories).forEach(([categoryName, categoryData]) => {
     if (categoryName === "أنواع الغرف والأجنحة") return;
 
-    // Category header
-    data.push([`=== ${categoryName} ===`, '']);
-    data.push(['الحقل', 'القيمة']);
+    // Category header with translation
+    const translatedCategoryName = translateCategoryName(categoryName);
+    data.push([`=== ${translatedCategoryName} ===`, '']);
+    data.push([translationMap['الحقل'], translationMap['القيمة']]);
 
     // Category fields
     categoryData.fields.forEach(field => {
       const value = donneesActuelles[field] || "";
+      const translatedFieldName = translateFieldName(field);
       data.push([
-        field,
-        value || "غير مكتمل"
+        translatedFieldName,
+        value || translationMap['غير مكتمل']
       ]);
     });
 
@@ -464,14 +698,16 @@ const exporterVersExcel = () => {
 
   // Custom fields
   if (champsPersonnalises.length > 0) {
-    data.push(['=== الحقول المخصصة ===', '']);
-    data.push(['الحقل', 'القيمة']);
+    data.push([`=== ${translationMap['الحقول المخصصة']} ===`, '']);
+    data.push([translationMap['الحقل'], translationMap['القيمة']]);
 
     champsPersonnalises.forEach(field => {
       const value = donneesActuelles[field] || "";
+      // For custom fields, we translate if available, otherwise keep original
+      const translatedFieldName = translationMap[field] || field;
       data.push([
-        field,
-        value || "غير مكتمل"
+        translatedFieldName,
+        value || translationMap['غير مكتمل']
       ]);
     });
   }
@@ -479,19 +715,15 @@ const exporterVersExcel = () => {
   // Create worksheet from array
   const ws = XLSX.utils.aoa_to_sheet(data);
 
-  // Set column widths for only 2 columns now
+  // Set column widths
   ws['!cols'] = [
-    { width: 40 }, // Column A - Field name
+    { width: 50 }, // Column A - Field name (wider for French text)
     { width: 30 }  // Column B - Value
   ];
 
-  XLSX.utils.book_append_sheet(wb, ws, "بيانات الفندق");
-  XLSX.writeFile(wb, `${donneesHotelSelectionne?.name.replace(/[^a-zA-Z0-9]/g, "_")}_بيانات_مفصلة.xlsx`);
+  XLSX.utils.book_append_sheet(wb, ws, "Données hôtel");
+  XLSX.writeFile(wb, `${donneesHotelSelectionne?.name.replace(/[^a-zA-Z0-9]/g, "_")}_donnees_detaillees.xlsx`);
 };
-;
-
-
-
   // Fonctions d'aide
 
   const obtenirChampsVides = () => {
@@ -763,7 +995,6 @@ const exporterVersExcel = () => {
                   <Download className="w-5 h-5" />
                   تصدير الفندق
                 </button>
-         
               </div>
 
               <div className="flex items-center gap-3 bg-white/90 rounded-xl p-3 border-2 border-yellow-300">
@@ -853,70 +1084,77 @@ const exporterVersExcel = () => {
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-  {champsAAfficher.map((champ) => {
-    const isBedTypeField = champ.includes("نوع السرير");
-    const isRoomCategoryField = champ.includes("فئة الغرفة");
-    
-    return (
-      <div key={champ} className="space-y-2">
-        <label className="block text-gray-800 text-sm font-semibold">
-          {champ}
-          {!donneesActuelles[champ]?.trim() && (
-            <span className="text-red-500 ml-1">*</span>
-          )}
-        </label>
-        {isBedTypeField ? (
-          <select
-            value={donneesActuelles[champ] || ""}
-            onChange={(e) =>
-              gererChangementChamp(champ, e.target.value)
-            }
-            className="w-full p-3 rounded-lg bg-gray-50 border-2 border-yellow-400 text-gray-800 focus:border-amber-500 focus:ring-2 focus:ring-yellow-200 transition-all"
-            onFocus={() => setChampEnCoursEdition(champ)}
-            onBlur={() => setChampEnCoursEdition("")}
-            data-field={champ}
-          >
-            {bedTypeOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        ) : isRoomCategoryField ? (
-          <select
-            value={donneesActuelles[champ] || ""}
-            onChange={(e) =>
-              gererChangementChamp(champ, e.target.value)
-            }
-            className="w-full p-3 rounded-lg bg-gray-50 border-2 border-yellow-400 text-gray-800 focus:border-amber-500 focus:ring-2 focus:ring-yellow-200 transition-all"
-            onFocus={() => setChampEnCoursEdition(champ)}
-            onBlur={() => setChampEnCoursEdition("")}
-            data-field={champ}
-          >
-            {roomCategoryOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        ) : (
-          <input
-            type="text"
-            value={donneesActuelles[champ] || ""}
-            onChange={(e) =>
-              gererChangementChamp(champ, e.target.value)
-            }
-            className="w-full p-3 rounded-lg bg-gray-50 border-2 border-yellow-400 text-gray-800 placeholder-gray-500 focus:border-amber-500 focus:ring-2 focus:ring-yellow-200 transition-all"
-            placeholder={`أدخل ${champ.toLowerCase()}...`}
-            data-field={champ}
-            onFocus={() => setChampEnCoursEdition(champ)}
-            onBlur={() => setChampEnCoursEdition("")}
-          />
-        )}
-      </div>
-    );
-  })}
-</div>
+                        {champsAAfficher.map((champ) => {
+                          const isBedTypeField = champ.includes("نوع السرير");
+                          const isRoomCategoryField =
+                            champ.includes("فئة الغرفة");
+
+                          return (
+                            <div key={champ} className="space-y-2">
+                              <label className="block text-gray-800 text-sm font-semibold">
+                                {champ}
+                                {!donneesActuelles[champ]?.trim() && (
+                                  <span className="text-red-500 ml-1">*</span>
+                                )}
+                              </label>
+                              {isBedTypeField ? (
+                                <select
+                                  value={donneesActuelles[champ] || ""}
+                                  onChange={(e) =>
+                                    gererChangementChamp(champ, e.target.value)
+                                  }
+                                  className="w-full p-3 rounded-lg bg-gray-50 border-2 border-yellow-400 text-gray-800 focus:border-amber-500 focus:ring-2 focus:ring-yellow-200 transition-all"
+                                  onFocus={() => setChampEnCoursEdition(champ)}
+                                  onBlur={() => setChampEnCoursEdition("")}
+                                  data-field={champ}
+                                >
+                                  {bedTypeOptions.map((option) => (
+                                    <option
+                                      key={option.value}
+                                      value={option.value}
+                                    >
+                                      {option.label}
+                                    </option>
+                                  ))}
+                                </select>
+                              ) : isRoomCategoryField ? (
+                                <select
+                                  value={donneesActuelles[champ] || ""}
+                                  onChange={(e) =>
+                                    gererChangementChamp(champ, e.target.value)
+                                  }
+                                  className="w-full p-3 rounded-lg bg-gray-50 border-2 border-yellow-400 text-gray-800 focus:border-amber-500 focus:ring-2 focus:ring-yellow-200 transition-all"
+                                  onFocus={() => setChampEnCoursEdition(champ)}
+                                  onBlur={() => setChampEnCoursEdition("")}
+                                  data-field={champ}
+                                >
+                                  {roomCategoryOptions.map((option) => (
+                                    <option
+                                      key={option.value}
+                                      value={option.value}
+                                    >
+                                      {option.label}
+                                    </option>
+                                  ))}
+                                </select>
+                              ) : (
+                                <input
+                                  type="text"
+                                  value={donneesActuelles[champ] || ""}
+                                  onChange={(e) =>
+                                    gererChangementChamp(champ, e.target.value)
+                                  }
+                                  className="w-full p-3 rounded-lg bg-gray-50 border-2 border-yellow-400 text-gray-800 placeholder-gray-500 focus:border-amber-500 focus:ring-2 focus:ring-yellow-200 transition-all"
+                                  placeholder={`أدخل ${champ.toLowerCase()}...`}
+                                  data-field={champ}
+                                  onFocus={() => setChampEnCoursEdition(champ)}
+                                  onBlur={() => setChampEnCoursEdition("")}
+                                />
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
                   );
                 })}
