@@ -46,6 +46,7 @@ const GestionnaireHotels = () => {
       fields: [
         "مرسل من قبل",
         " عدد النجوم",
+        "نوعية تشغيل الفندق",
         "سلسلة الفنادق التابعة لها",
         "البريد الإلكتروني للفندق",
         "رقم الهاتف",
@@ -278,6 +279,7 @@ const GestionnaireHotels = () => {
 
     // Contact and Hotel Info Fields
     "عدد النجوم": "Nombre d'étoiles",
+    "نوعية تشغيل الفندق": "Type d'ouverture de l'hôtel",
     "سلسلة الفنادق التابعة لها": "Chaîne hôtelière",
     "البريد الإلكتروني للفندق": "Email de l'hôtel",
     "رقم الهاتف": "Numéro de téléphone",
