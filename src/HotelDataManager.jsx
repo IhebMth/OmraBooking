@@ -198,7 +198,7 @@ const GestionnaireHotels = () => {
         "هل يتوفر مجفف شعر في الحمام؟",
         "هل يوجد خزنة داخل الغرف؟",
         "هل يوجد آلة صنع القهوة؟",
-        "?سرير للرضّع" (عند الطلب),
+        "Lit pour bébé (sur demande)",
       ],
     },
     // Add this new category to your categoriesChamps object, place it after "معلومات الغرف"
