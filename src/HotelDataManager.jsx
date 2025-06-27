@@ -198,6 +198,7 @@ const GestionnaireHotels = () => {
         "هل يتوفر مجفف شعر في الحمام؟",
         "هل يوجد خزنة داخل الغرف؟",
         "هل يوجد آلة صنع القهوة؟",
+        "?سرير للرضّع" (عند الطلب),
       ],
     },
     // Add this new category to your categoriesChamps object, place it after "معلومات الغرف"
@@ -420,6 +421,7 @@ const GestionnaireHotels = () => {
       "Y a-t-il un sèche-cheveux dans la salle de bain ?",
     "هل يوجد خزنة داخل الغرف؟": "Y a-t-il un coffre-fort dans les chambres ?",
     "هل يوجد آلة صنع القهوة؟": "Y a-t-il une machine à café ?",
+    "Lit pour bébé" (sur demande) : "سرير للرضّع" (عند الطلب),
 
     // Room type dynamic patterns
     النوع: "Type",
