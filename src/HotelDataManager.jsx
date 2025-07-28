@@ -352,7 +352,7 @@ const GestionnaireHotels = () => {
       />
     </div>
     <h1 className="text-5xl font-bold text-gray-800">
-      Omra Booking
+      Oomra Booking
     </h1>
   </div>
   <p className="text-gray-800 text-xl font-semibold">Système de Gestion des Données d'Hôtels</p>
