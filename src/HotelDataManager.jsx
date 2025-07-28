@@ -808,7 +808,7 @@ const translateCategoryName = (categoryName) => {
                 className="w-12 h-12 object-contain"
               />
             </div>
-            <h1 className="text-5xl font-bold text-gray-800">OmraBooking</h1>
+            <h1 className="text-5xl font-bold text-gray-800">OomraBooking</h1>
           </div>
           <p className="text-gray-800 text-xl font-semibold">
             نظام إدارة بيانات الفنادق
